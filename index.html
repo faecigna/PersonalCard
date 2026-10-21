@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#262937">
+  <meta name="description" content="Rafaela Cigna — Diseño Gráfico & Arte Digital — Portfolio">
+  <title>Rafaela Cigna — Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Jersey+15&family=Pixelify+Sans:wght@400..700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <svg width="0" height="0" class="sr-svg-defs" aria-hidden="true" focusable="false">
+    <filter id="crisp-qr" color-interpolation-filters="sRGB">
+      <feComponentTransfer>
+        <feFuncA type="discrete" tableValues="0 1" />
+      </feComponentTransfer>
+    </filter>
+  </svg>
+
+  <div class="stars-bg" aria-hidden="true"></div>
+
+  <main class="card-container">
+    <header class="profile-header">
+      <div class="avatar-wrap">
+        <img
+          src="./catblob_3.gif"
+          alt="Ilustración animada de gatito pixel art"
+          class="avatar-img"
+          width="150"
+          height="150"
+          fetchpriority="high"
+        >
+      </div>
+      <h1 class="greeting">HOLA!<span class="cursor" aria-hidden="true">_</span></h1>
+     <p class="name">Soy Rafaela Cigna</p>
+    
+     <div><span class="portfolio-label">Diseño gráfico</span><span class="portfolio-label">Arte Digital</span></div>     
+           <p class="bio"><span style="color:var(--color-cyan);"> ¡Esta es mi tarjeta digital!</span> <span class="spark" aria-hidden="true">✦</span> <br>Me encanta experimentar. ¡Un gusto conocerte!</p>
+    </header>
+
+    <section class="qr-section" aria-label="Código QR del portfolio">
+      <p class="role"><span class="spark" aria-hidden="true">✦</span> Mi portfolio <span class="spark" aria-hidden="true">✦</span></p>
+      <a
+        href="https://faecigna.myportfolio.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="qr-link"
+        aria-label="Abrir link a Portfolio"
+      >
+        <img
+          src="./qr.svg"
+          alt="Código QR para escanear y abrir faecigna.myportfolio.com"
+          class="qr-img"
+          width="222"
+          height="222"
+          fetchpriority="high"
+        >
+      </a>
+    </section>
+
+    <footer class="card-footer">
+      <a
+        href="https://faecigna.myportfolio.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="portfolio-url"
+      ><span class="bracket" aria-hidden="true">&lt;</span> faecigna.myportfolio.com <span class="bracket" aria-hidden="true">&gt;</span></a>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,408 @@
+:root {
+  /* Paleta definida por el proyecto */
+  --color-bg: #262937;
+  --color-cyan: #baf6ff;
+  --color-lavender: #a2a4fd;
+  --color-stars-tint: #454a60;
+  --color-white:#ffffff;
+
+  --font-header: 'Silkscreen', monospace;
+  --font-body: 'Pixelify Sans', sans-serif;
+
+  --stars-size: 160px;
+  --stars-opacity: 0.65;
+  --stars-duration: 20s;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.sr-svg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--color-bg);
+  color: var(--color-cyan);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:
+    max(1.25rem, env(safe-area-inset-top))
+    max(1.25rem, env(safe-area-inset-right))
+    max(1.5rem, env(safe-area-inset-bottom))
+    max(1.25rem, env(safe-area-inset-left));
+}
+
+/* ==========================================================================
+   Fondo de estrellas
+   ========================================================================== */
+.stars-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--stars-opacity);
+
+  /* Multiplicamos #454a60 sobre el GIF (blanco * #454a60 = #454a60) */
+  background-color: var(--color-stars-tint);
+  background-image: url('./starsbgbig_inv.gif');
+  background-repeat: repeat;
+  background-size: var(--stars-size) var(--stars-size);
+  background-blend-mode: multiply;
+
+  /* Las mismas estrellitas actúan como máscara de sí mismas */
+  -webkit-mask-image: url('./starsbgbig_inv.gif');
+  -webkit-mask-source-type: luminance;
+  -webkit-mask-repeat: repeat;
+  -webkit-mask-size: var(--stars-size) var(--stars-size);
+  mask-image: url('./starsbgbig_inv.gif');
+  mask-mode: luminance;
+  mask-repeat: repeat;
+  mask-size: var(--stars-size) var(--stars-size);
+
+  image-rendering: pixelated;
+  will-change: background-position, mask-position;
+  animation: stars-scroll var(--stars-duration) linear infinite;
+}
+
+@keyframes stars-scroll {
+  from {
+    background-position: 0 0;
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+  to {
+    background-position: var(--stars-size) calc(var(--stars-size) * -1);
+    -webkit-mask-position: var(--stars-size) calc(var(--stars-size) * -1);
+    mask-position: var(--stars-size) calc(var(--stars-size) * -1);
+  }
+}
+
+/* ==========================================================================
+   Estructura principal
+   ========================================================================== */
+.card-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: clamp(1.35rem, 3.8dvh, 1.85rem);
+}
+
+.avatar-wrap {
+  margin-bottom: clamp(0.55rem, 1.8dvh, 0.9rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-img {
+  width: clamp(132px, 40vw, 165px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  display: block;
+  image-rendering: pixelated;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.greeting {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-header);
+  font-weight: 400;
+  font-size: clamp(1.95rem, 8.2vw, 2.35rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: var(--color-cyan);
+  text-shadow: 2px 2px 0 var(--color-stars-tint);
+  margin-bottom: 0.25rem;
+}
+
+.cursor {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  color: var(--color-lavender);
+  margin-left: 0.04em;
+  animation: cursor-blink 1.2s steps(2, jump-none) infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 5.4vw, 1.52rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--color-lavender);
+}
+
+/* Contenedor de Diseño gráfico y Arte Digital */
+.profile-header > div:not(.avatar-wrap) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+
+.portfolio-label {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-header);
+  font-size: clamp(0.68rem, 2.8vw, 0.76rem);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  color: var(--color-cyan);
+  background-color: rgba(69, 74, 96, 0.38);
+  border: 1px solid var(--color-stars-tint);
+  padding: 0.26rem 0.6rem;
+  box-shadow: 2px 2px 0 var(--color-stars-tint);
+}
+
+.bio {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 3.9vw, 1.05rem);
+  line-height: 1.35;
+  color: var(--color-white);
+  opacity: 0.9;
+  max-width: 29ch;
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--color-stars-tint);
+}
+
+.role {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(1.12rem, 4.6vw, 1.28rem);
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-cyan);
+  margin-bottom: 0.15rem;
+}
+
+.spark {
+  color: var(--color-lavender);
+  font-size: 0.9em;
+}
+
+.qr-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.qr-link {
+  display: inline-flex;
+  padding: 0.15rem;
+  border-radius: 4px;
+  transition: transform 0.18s ease;
+}
+
+.qr-link:focus-visible {
+  outline: 2px dashed var(--color-cyan);
+  outline-offset: 6px;
+}
+
+.qr-link:active {
+  transform: scale(0.98);
+}
+
+.qr-img {
+  width: clamp(204px, 62vw, 236px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  display: block;
+  filter: url(#crisp-qr);
+  user-select: none;
+}
+
+.card-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.35rem;
+}
+
+.portfolio-url {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(0.84rem, 3.5vw, 0.94rem);
+  letter-spacing: 0.02em;
+  color: var(--color-whi);
+  text-decoration: none;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.portfolio-url .bracket {
+  color: var(--color-lavender);
+}
+
+.portfolio-url:hover {
+  color: var(--color-lavender);
+}
+
+.portfolio-url:focus-visible {
+  outline: 2px dashed var(--color-cyan);
+  outline-offset: 4px;
+}
+
+.portfolio-url:active {
+  transform: translateY(1px);
+}
+
+/* Media para pantallas verticales */
+@media (max-height: 700px) and (orientation: portrait) {
+  .profile-header {
+    margin-bottom: 1rem;
+  }
+
+  .avatar-img {
+    width: clamp(110px, 32vw, 132px);
+  }
+
+  .qr-img {
+    width: clamp(178px, 52vw, 204px);
+  }
+}
+
+/* ==========================================================================
+   Modo tarjeta horizontal
+   ========================================================================== */
+@media (orientation: landscape) and (min-width: 460px), (max-height: 540px) and (min-width: 440px) {
+  body {
+    padding:
+      max(0.75rem, env(safe-area-inset-top))
+      max(1.25rem, env(safe-area-inset-right))
+      max(0.75rem, env(safe-area-inset-bottom))
+      max(1.25rem, env(safe-area-inset-left));
+  }
+
+  .card-container {
+    max-width: 620px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-rows: auto auto;
+    column-gap: clamp(1.25rem, 4vw, 2.25rem);
+    align-items: center;
+    justify-items: center;
+  }
+
+  .profile-header {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    margin-bottom: 0;
+  }
+
+  .qr-section {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    gap: 0.35rem;
+  }
+
+  .card-footer {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    margin-top: 0.25rem;
+  }
+
+  .avatar-wrap {
+    margin-bottom: clamp(0.25rem, 1.2dvh, 0.5rem);
+  }
+
+  .avatar-img {
+    width: clamp(88px, 28dvh, 132px);
+  }
+
+  .greeting {
+    font-size: clamp(1.45rem, 6.8dvh, 2rem);
+    margin-bottom: 0.1rem;
+  }
+
+  .name {
+    font-size: clamp(1.05rem, 4.6dvh, 1.35rem);
+  }
+
+  .profile-header > div:not(.avatar-wrap) {
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+  }
+
+  .portfolio-label {
+    font-size: clamp(0.58rem, 2.3dvh, 0.72rem);
+    padding: 0.18rem 0.48rem;
+  }
+
+  .bio {
+    font-size: clamp(0.8rem, 3.2dvh, 0.96rem);
+    margin-top: 0.45rem;
+    padding-top: 0.4rem;
+  }
+
+  .role {
+    font-size: clamp(0.95rem, 4.2dvh, 1.18rem);
+    margin-bottom: 0.1rem;
+  }
+
+  .qr-img {
+    width: clamp(148px, 54dvh, 222px);
+  }
+
+  .portfolio-url {
+    font-size: clamp(0.75rem, 3dvh, 0.88rem);
+    white-space: nowrap;
+  }
+}
